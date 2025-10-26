@@ -1,18 +1,15 @@
 package s3
 
-// ConflictPolicy 文件名冲突时的处理策略
-type ConflictPolicy string
-
-const (
-	ConflictOverwrite ConflictPolicy = "overwrite" // 直接覆盖
-	ConflictRename    ConflictPolicy = "rename"    // 自动加后缀 (1), (2)...
-	ConflictError     ConflictPolicy = "error"     // 直接返回错误
-)
-
 // UploadOptions 上传配置
 type UploadOptions struct {
-	Rename         bool           // 是否强制重命名（用 ULID）
-	ConflictPolicy ConflictPolicy // 冲突处理策略
-	ContentType    string         // 可选：MIME 类型
-	PublicRead     bool           // 是否公开可读（主流公开图床使用）
+	Directory    string // Directory S3 存储目录路径（可选）
+	PreserveName bool   // PreserveName 是否保留原始文件名（默认 false）
+}
+
+// UploadResult 上传结果
+type UploadResult struct {
+	Key         string // Key S3 对象键名
+	URL         string // URL 完整的 S3 访问链接
+	Size        int64  // Size 文件大小（字节）
+	ContentType string // ContentType 文件 MIME 类型
 }

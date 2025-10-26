@@ -8,17 +8,6 @@ import (
 	"github.com/oklog/ulid/v2"
 )
 
-// RandomID 生成随机字符串 (8-16位)
-func RandomID(length int) string {
-	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-	b := make([]byte, length)
-	_, _ = rand.Read(b)
-	for i := 0; i < length; i++ {
-		b[i] = charset[int(b[i])%len(charset)]
-	}
-	return string(b)
-}
-
 // JoinPath 安全拼接 S3 Key 路径
 func JoinPath(parts ...string) string {
 	return strings.Join(parts, "/")
